@@ -9,6 +9,12 @@ target_link_libraries(${PROJECT_LIBRARY_TARGET_NAME}
     ignition-plugin${IGN_PLUGIN_VER}::register
     Eigen3::Eigen)
 
+if(MSVC)
+  target_compile_definitions(${PROJECT_LIBRARY_TARGET_NAME}
+    PUBLIC _ENABLE_EXTENDED_ALIGNED_STORAGE)
+  target_compile_options(${PROJECT_LIBRARY_TARGET_NAME} PRIVATE /permissive-)
+endif()
+
 ign_build_tests(
   TYPE UNIT
   SOURCES ${gtest_sources})
